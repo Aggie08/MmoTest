@@ -6,16 +6,19 @@ extends CharacterBody2D
 
 @onready var name_label = $NameLabel
 @onready var camera = $Camera2D
+@onready var anim_tree: AnimationTree = $AnimationTree
 
 var input_vector = Vector2.ZERO
 var target_position = Vector2.ZERO
 var is_moving = false
+var playback: AnimationNodeStateMachinePlayback
 
 # Network interpolation
 var network_position = Vector2.ZERO
 var last_network_update = 0.0
 
 func _ready():
+	playback = anim_tree["parameters/playback"]
 	# Set up name label
 	name_label.text = player_name
 	
@@ -27,6 +30,7 @@ func _physics_process(delta):
 		# Handle local player input and movement
 		handle_input()
 		handle_movement(delta)
+		animate()
 		
 		# Send position updates to server periodically
 		if position != network_position:
@@ -39,22 +43,23 @@ func _physics_process(delta):
 func handle_input():
 	input_vector = Input.get_vector("move_left","move_right","move_up", "move_down")
 	
-	# 8-directional movement
-	#if Input.is_action_pressed("move_up"):
-		#input_vector.y -= 1
-	#if Input.is_action_pressed("move_down"):
-		#input_vector.y += 1
-	#if Input.is_action_pressed("move_left"):
-		#input_vector.x -= 1
-	#if Input.is_action_pressed("move_right"):
-		#input_vector.x += 1
-	
 	# Normalize diagonal movement
 	input_vector = input_vector.normalized()
 	
 	# Handle interaction input
 	if Input.is_action_just_pressed("interact"):
 		check_for_interactions()
+
+func animate():
+	if velocity == Vector2.ZERO:
+		playback.travel("Idle")
+	else:
+		playback.travel("Walk")
+	
+	if input_vector == Vector2.ZERO:
+		return
+	anim_tree["parameters/Idle/blend_position"] = input_vector
+	anim_tree["parameters/Walk/blend_position"] = input_vector
 
 func handle_movement(delta):
 	if input_vector != Vector2.ZERO:
