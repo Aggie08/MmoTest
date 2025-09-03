@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgubqgjqqcwkd"]
+
+[ext_resource type="Script" path="res://Scenes/UI/login.gd" id="1_rb2jf"]
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rb2jf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -79.5
+offset_right = 33.5
+offset_bottom = 79.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Login"
+horizontal_alignment = 1
+
+[node name="NameInput" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="AddressInput" type="LineEdit" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Connect" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="ErrorLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Ready to Connect"
+
+[connection signal="text_submitted" from="VBoxContainer/NameInput" to="." method="_on_name_submitted"]
+[connection signal="pressed" from="VBoxContainer/Connect" to="." method="_on_connect_pressed"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://be52riek0i1v6"]
+
+[ext_resource type="Script" path="res://Scenes/UI/chat.gd" id="1_we1xx"]
+
+[node name="Chat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_we1xx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChatDisplay" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+scroll_following = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ChatInput" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "Type Message..."
+expand_to_text_length = true
+
+[node name="SendButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Send"
+
+[node name="PrivateChatPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PrivateChatPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PrivateTitle" type="Label" parent="PrivateChatPanel/VBoxContainer"]
+layout_mode = 2
+text = "Private Chat"
+
+[node name="PrivateDisplay" type="RichTextLabel" parent="PrivateChatPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+scroll_following = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PrivateChatPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PrivateInput" type="LineEdit" parent="PrivateChatPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PrivateSendButton" type="Button" parent="PrivateChatPanel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Send"
+
+[node name="CloseButton" type="Button" parent="PrivateChatPanel/VBoxContainer"]
+layout_mode = 2
+text = "Close"
