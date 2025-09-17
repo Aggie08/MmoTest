@@ -25,7 +25,7 @@ func show_login_screen():
 	
 	# Connect login screen signals - THIS WAS MISSING!
 	current_ui.connect("login_requested", _on_login_requested)
-	current_ui.connect("connect_requested", _on_connect_requested)
+	#current_ui.connect("connect_requested", _on_connect_requested)
 	print("Login screen signals connected")
 
 func show_connection_error(message: String = ""):
@@ -51,15 +51,15 @@ func show_disconnection_message():
 	if current_ui and current_ui.has_method("show_error"):
 		current_ui.show_error("Disconnected from server. Please reconnect.")
 
-func _on_login_requested(name: String):
-	print("Login requested for name: ", name)
-	player_name = name
-	Network.rpc("authenticate_player", name)
+func _on_login_requested(p_name: String):
+	print("Login requested for name: ", p_name)
+	player_name = p_name
+	Network.rpc("authenticate_player", p_name)
 	get_tree().change_scene_to_packed(world_scene)
 	current_ui = null
 
-func _on_connect_requested(address: String):
-	Network.connect_to_server(address)
+#func _on_connect_requested(address: String):
+	#Network.connect_to_server(address)
 
 func on_authentication_result(success: bool, error_message: String):
 	print("Authentication result: ", success, " - ", error_message)

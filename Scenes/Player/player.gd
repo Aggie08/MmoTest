@@ -33,9 +33,9 @@ func _physics_process(delta):
 		animate()
 		
 		# Send position updates to server periodically
-		if position != network_position:
-			rpc("update_position", position, input_vector)
-			network_position = position
+		#if position != network_position:
+		rpc("update_position", position, input_vector)
+		network_position = position
 	else:
 		# Interpolate other players' positions
 		interpolate_position(delta)
@@ -61,7 +61,7 @@ func animate():
 	anim_tree["parameters/Idle/blend_position"] = input_vector
 	anim_tree["parameters/Walk/blend_position"] = input_vector
 
-func handle_movement(delta):
+func handle_movement(_delta):
 	if input_vector != Vector2.ZERO:
 		velocity = input_vector * speed
 		is_moving = true
@@ -86,12 +86,6 @@ func update_position(new_position: Vector2, movement_vector: Vector2):
 	var sender_id = multiplayer.get_remote_sender_id()
 	if sender_id != player_id:
 		return  # Only the owning player can update position
-	
-	# Basic validation (anti-cheat)
-	var max_distance = speed * 2.0 / 60.0  # Max distance per frame at 60 FPS
-	if position.distance_to(new_position) > max_distance:
-		print("Suspicious movement from player ", player_id)
-		return
 	
 	# Update position
 	position = new_position
@@ -142,9 +136,9 @@ func set_player_name(new_name: String):
 		name_label.text = player_name
 
 # Initialize player data
-func setup_player(id: int, name: String, spawn_position: Vector2):
+func setup_player(id: int, p_name: String, spawn_position: Vector2):
 	player_id = id
-	player_name = name
+	player_name = p_name
 	position = spawn_position
 	target_position = spawn_position
 	network_position = spawn_position

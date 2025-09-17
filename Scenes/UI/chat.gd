@@ -18,14 +18,6 @@ func _ready():
 	setup()
 
 func setup():
-	# Connect signals
-	send_button.pressed.connect(_on_send_pressed)
-	chat_input.text_submitted.connect(_on_chat_submitted)
-	
-	private_send.pressed.connect(_on_private_send_pressed)
-	private_input.text_submitted.connect(_on_private_submitted)
-	private_close.pressed.connect(_on_private_close_pressed)
-	
 	# Connect to chat manager
 	ChatManager.message_received.connect(_on_message_received)
 	ChatManager.private_message_received.connect(_on_private_message_received)
@@ -60,7 +52,7 @@ func _input(event):
 func _on_send_pressed():
 	send_global_message()
 
-func _on_chat_submitted(text: String):
+func _on_chat_submitted(_text: String):
 	send_global_message()
 
 func send_global_message():
@@ -72,7 +64,7 @@ func send_global_message():
 func _on_private_send_pressed():
 	send_private_message()
 
-func _on_private_submitted(text: String):
+func _on_private_submitted(_text: String):
 	send_private_message()
 
 func send_private_message():

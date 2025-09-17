@@ -68,6 +68,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Send"
 
-[node name="CloseButton" type="Button" parent="PrivateChatPanel/VBoxContainer"]
+[node name="PrivateClose" type="Button" parent="PrivateChatPanel/VBoxContainer"]
 layout_mode = 2
 text = "Close"
+
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/ChatInput" to="." method="_on_chat_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SendButton" to="." method="_on_send_pressed"]
+[connection signal="text_submitted" from="PrivateChatPanel/VBoxContainer/HBoxContainer/PrivateInput" to="." method="_on_private_submitted"]
+[connection signal="pressed" from="PrivateChatPanel/VBoxContainer/HBoxContainer/PrivateSendButton" to="." method="_on_private_send_pressed"]
+[connection signal="pressed" from="PrivateChatPanel/VBoxContainer/PrivateClose" to="." method="_on_private_close_pressed"]

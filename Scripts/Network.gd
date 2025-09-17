@@ -49,14 +49,13 @@ func start_server():
 		multiplayer.peer_connected.connect(_on_peer_connected)
 		multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 		
-		# Load the world scene
-		get_tree().change_scene_to_file("res://Scenes/World/World.tscn")
-		
 		# Setup server heartbeat for health checks
 		setup_server_heartbeat()
 	else:
 		print("Failed to start server: ", result)
 		get_tree().quit(1)
+	
+	get_tree().change_scene_to_file("res://Scenes/World/World.tscn")
 
 func setup_server_heartbeat():
 	# Simple heartbeat for monitoring
@@ -226,7 +225,7 @@ func player_joined(peer_id: int, player_name: String):
 @rpc("authority", "reliable")
 func player_left(peer_id: int, player_name: String):
 	if not is_server:
-		print(player_name, " left the game")
+		print(player_name,"(",peer_id,")", " left the game")
 		ChatManager.add_system_message(player_name + " left the game")
 
 # Get player data

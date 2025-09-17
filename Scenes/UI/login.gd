@@ -1,7 +1,7 @@
 extends Control
 
 signal login_requested(player_name: String)
-signal connect_requested(server_address: String)
+#signal connect_requested(server_address: String)
 
 @onready var name_input = $VBoxContainer/NameInput
 @onready var address_input = $VBoxContainer/AddressInput
